@@ -21,6 +21,67 @@ package object core {
       result
     }
 
+    def hex(ch: Int) = Integer.toHexString(ch).toUpperCase
+
+
+    // Adapted from Apache Commons
+    // https://commons.apache.org/proper/commons-lang/javadocs/api-2.6/src-html/org/apache/commons/lang/StringEscapeUtils.html#line.158
+    def escapeJavaStyleString(str: String): String = {
+
+      if (str == null) {
+        str
+      } else {
+        val out = new StringBuilder(2 * str.length)
+        for {
+          i <- Range(0, str.length)
+        } {
+          val ch = str.charAt(i)
+
+          if (ch > 0xfff) out ++= ("\\u" + hex(ch))
+          else if (ch > 0xff) out ++= ("\\u0" + hex(ch))
+          else if (ch > 0x7f) out ++= ("\\u00" + hex(ch))
+          else if (ch < 32) ch match {
+            case '\b' =>
+              out += '\\'
+              out += 'b'
+            case '\n' =>
+              out += '\\'
+              out += 'n'
+            case '\t' =>
+              out += '\\'
+              out += 't'
+            case '\f' =>
+              out += '\\'
+              out += 'f'
+            case '\r' =>
+              out += '\\'
+              out += 'r'
+            case _ =>
+              if (ch == 0) out ++= "\\0"
+              else if (ch > 0xf) out ++=("\\u00" + hex(ch))
+              else out ++= ("\\u000" + hex(ch))
+          }
+          else ch match {
+            // case '\'' =>
+            //  out += '\\'
+            //  out += '\''
+            case '"' =>
+              out += '\\'
+              out += '"'
+            case '\\' =>
+              out += '\\'
+              out += '\\'
+            // case '/' =>
+            //  out += '\\'
+            //  out += '/'
+            case _ =>
+              out += ch
+          }
+        }
+        out.mkString
+      }
+    }
+
     /** Parse a String with escape sequences. */
     def decode: String = decode(false)
 
@@ -71,7 +132,9 @@ package object core {
       buffer.toString
     }
 
-    def encode: String = if (str == null) null else ("" /: str)(_ + _.encodeStringChar)
+
+    def encode: String = escapeJavaStyleString(str)
+
 
     /** Compare two Strings ignoring the spaces in each */
     def equalsIgnoreSpaces(str2: String): Boolean = {
@@ -100,31 +163,6 @@ package object core {
         val ext = if (newExt == null || newExt.isEmpty) "" else if (newExt(0) != '.') '.' + newExt else newExt
         if (lastDot == -1) str + ext else str.substring(0, lastDot) + ext
     }
-  }
-
-  /**
-    * Common utility methods to deal with Chars.
-    */
-  implicit class Chars(val chr: Char) extends AnyVal {
-    def encodeStringChar: String = if (chr == '"') "\\\"" else encodeChar
-    def encodeChar: String =
-      if (chr == '\\') "\\\\"
-      else if (chr >= ' ' && chr < 0x7F || chr > 0xA0 && chr < 0xFF) {
-        // If it is an ISO, no control character return it unchanged
-        chr.toString
-      }
-      else
-        chr match {
-          case '\n' => "\\n"
-          case '\t' => "\\t"
-          case '\r' => "\\r"
-          case '\f' => "\\f"
-          case '\b' => "\\b"
-          case '\u0000' => "\\0"
-          case _ =>
-            val s = Integer.toHexString(chr).toUpperCase
-            "\\u" + "0" * (4 - s.length) + s
-        }
   }
 
   private def decodeUnicodeChar(str: String, from: Int, to: Int, ignoreErrors: Boolean): String = {

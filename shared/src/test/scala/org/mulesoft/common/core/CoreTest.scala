@@ -33,9 +33,10 @@ trait CoreTest extends FunSuite with Matchers {
         s3.encode shouldBe ""
     }
     test("encoded strings") {
-        val code = "a\\\\\\b\\n\\r\\t\\fpi\\u03A0\\0quote\\\""
-        code.decode shouldBe "a\\\b\n\r\t\fpi\u03A0\u0000quote\""
-        code.decode.encode shouldBe code
+        val code = "a\\u00F3\\\\\\b\\n\\r\\t\\fpi\\u03A0\\0quote\\\""
+        code.decode shouldBe "aó\\\b\n\r\t\fpi\u03A0\u0000quote\""
+        val encoded = code.decode.encode
+        encoded shouldBe code
     }
     test("extended decode") {
         "\\x1B\\U0001f600".decode shouldBe "\u001B😀"
