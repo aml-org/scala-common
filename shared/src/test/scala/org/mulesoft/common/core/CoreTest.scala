@@ -3,6 +3,7 @@ package org.mulesoft.common.core
 import org.scalatest.{FunSuite, Matchers}
 
 import org.mulesoft.common.core._
+
 /**
   * Test Core Methods.
   */
@@ -47,6 +48,11 @@ trait CoreTest extends FunSuite with Matchers {
     val encoded = code.decode.encode
     encoded shouldBe code
   }
+
+  test("encoded non ascii strings") {
+    "こんにちは".encode(encodeNonAscii = false) shouldBe "こんにちは"
+  }
+
   test("extended decode") {
     "\\x1B\\U0001f600".decode shouldBe "\u001B😀"
     "\\v\\e\\N".decode shouldBe "\u000B\u001B\u0085"
