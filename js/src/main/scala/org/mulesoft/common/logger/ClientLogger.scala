@@ -1,7 +1,6 @@
 package org.mulesoft.common.logger
 import scala.scalajs.js
 
-@js.native
 trait ClientLogger {
   def error(message: String): Unit
 
