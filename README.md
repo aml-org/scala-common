@@ -25,7 +25,7 @@ This project includes common utility code for:
 
 - JVM API and libraries
 - JavaScript API and libraries
-- Improve to documentation 
+- Improve documentation 
 - Examples
 - Tests and Coverage
 
