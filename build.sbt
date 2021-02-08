@@ -1,6 +1,6 @@
 import sbtcrossproject.CrossPlugin.autoImport.crossProject
 
-version in ThisBuild := getVersion(0, 5)
+version in ThisBuild := getVersion(1, 0)
 
 lazy val common = crossProject(JSPlatform, JVMPlatform)
   .in(file("."))

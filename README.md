@@ -6,10 +6,6 @@ This project includes common utility code for:
 - Core
   
   Provides basic utility methods to extend String and Char
-
-- Ext
-
-  Provides diff capabilities
   
 - Io
 
