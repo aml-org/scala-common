@@ -11,7 +11,7 @@ import scala.language.higherKinds
   * @tparam C context for the output type (e.g. Option)
   */
 trait CacheProxy[I, O, C[_]] {
-  protected val cache: Cache[I, O] = Cache.empty[I, O]
+  val cache: Cache[I, O] = Cache.empty[I, O]
   /**
     * Executes the [[run]] operation with caching. On cache hit returns the cached result it otherwise execute run and
     * store the result in the cache.
