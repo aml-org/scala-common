@@ -2,12 +2,14 @@ package org.mulesoft.common.time
 
 import org.mulesoft.common.parse._
 import org.mulesoft.common.time.SimpleDateTime._
-import org.scalatest.{FunSuite, Matchers, OptionValues}
+import org.scalatest.OptionValues
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 /**
   * Check SimpleDateTime
   */
-trait SimpleDateTimeTest extends FunSuite with Matchers with OptionValues {
+trait SimpleDateTimeTest extends AnyFunSuite with Matchers with OptionValues {
   test("singletons") {
     Epoch.day shouldBe 1
     Epoch.month shouldBe 1

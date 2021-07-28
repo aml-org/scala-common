@@ -1,12 +1,13 @@
 package org.mulesoft.common.net
 
 import org.mulesoft.common.parse.ParseException
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 /**
   * Test Core Methods.
   */
-trait NetTest extends FunSuite with Matchers {
+trait NetTest extends AnyFunSuite with Matchers {
 
   test("inet address") {
     import InetAddress._

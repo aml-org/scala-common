@@ -1,9 +1,9 @@
 package org.mulesoft.common.collections
 
-import org.scalatest.FunSuite
-import org.scalatest.Matchers.convertToAnyShouldWrapper
+import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
+import org.scalatest.funsuite.AnyFunSuite
 
-trait FilterTypeTest extends FunSuite {
+trait FilterTypeTest extends AnyFunSuite {
   test("Test simple type filtering") {
     sealed trait Letter
     case class A() extends Letter

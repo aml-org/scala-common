@@ -1,8 +1,8 @@
 package org.mulesoft.common.io
 
-import org.scalatest.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
+import org.scalatest.funsuite.AsyncFunSuite
 
 /**
   * IO Tests

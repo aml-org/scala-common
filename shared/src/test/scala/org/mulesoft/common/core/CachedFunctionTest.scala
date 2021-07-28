@@ -1,8 +1,8 @@
 package org.mulesoft.common.core
 
 import org.mulesoft.common.functional.MonadInstances._
-import org.scalatest.AsyncFunSuite
-import org.scalatest.Matchers.convertToAnyShouldWrapper
+import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
+import org.scalatest.funsuite.AsyncFunSuite
 
 trait CachedFunctionTest extends AsyncFunSuite {
   test("Cache proxy with context") {

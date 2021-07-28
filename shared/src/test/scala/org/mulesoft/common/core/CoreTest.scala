@@ -1,13 +1,14 @@
 package org.mulesoft.common.core
 
-import org.scalatest.{FunSuite, Matchers}
 
 import org.mulesoft.common.core._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 /**
   * Test Core Methods.
   */
-trait CoreTest extends FunSuite with Matchers {
+trait CoreTest extends AnyFunSuite with Matchers {
 
   test("basic strings") {
     val s1 = "aaaxxxa"

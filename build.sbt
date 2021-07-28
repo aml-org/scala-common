@@ -11,7 +11,7 @@ lazy val common = crossProject(JSPlatform, JVMPlatform)
       name := "scala-common",
       libraryDependencies ++= Seq(
         "org.scalactic" %%% "scalactic" % "3.0.1" % Test,
-        "org.scalatest" %%% "scalatest" % "3.0.0" % Test
+        "org.scalatest" %%% "scalatest" % "3.1.4" % Test
       ),
       credentials ++= Common.credentials()
     )
