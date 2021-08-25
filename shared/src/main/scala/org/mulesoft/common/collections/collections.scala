@@ -16,13 +16,13 @@ package object collections {
   implicit class FilterType[A, T[A] <: GenTraversableLike[A, T[A]]](collection: T[A]) {
 
     /**
-      * Filters elements from collection by type B where B is a subtype of A
+      * Filters elements from collection by type B
       * @param tag implicit class tag to workaround type erasure
       * @param bf builds the same input collection type T for the output T[B]
       * @tparam B type to filter
       * @return collection with filtered members of collection of type B
       */
-    def filterType[B <: A](implicit tag: ClassTag[B], bf: CanBuildFrom[T[A], B, T[B]]): T[B] = collection.collect {
+    def filterType[B](implicit tag: ClassTag[B], bf: CanBuildFrom[T[A], B, T[B]]): T[B] = collection.collect {
       case element: B => element
     }
   }
