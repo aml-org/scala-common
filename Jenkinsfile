@@ -26,14 +26,7 @@ pipeline {
         wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sonarqube-official', passwordVariable: 'SONAR_SERVER_TOKEN', usernameVariable: 'SONAR_SERVER_URL']]) {
             script {
-              try {
-                if (failedStage.isEmpty()) {
-                  sh 'sbt -Dsonar.host.url=${SONAR_SERVER_URL} sonarScan'
-                }
-              } catch (ignored) {
-                failedStage = failedStage + " COVERAGE "
-                unstable "Failed coverage"
-              }
+              sh 'sbt -Dsonar.host.url=${SONAR_SERVER_URL} sonarScan'
             }
           }
         }
