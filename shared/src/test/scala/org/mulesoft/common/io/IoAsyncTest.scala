@@ -8,7 +8,6 @@ import scala.concurrent.ExecutionContext
   * IO Tests
   */
 trait IoAsyncTest extends AsyncFunSuite with BaseIoTest {
-  override implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global
 
   test("read") {
     val dataDir   = fs.asyncFile(dirName)
