@@ -1,9 +1,10 @@
 import sbtcrossproject.CrossPlugin.autoImport.crossProject
 import sbtsonar.SonarPlugin.autoImport.sonarProperties
 
-ThisBuild / version := getVersion(2, 0)
+//ThisBuild / version := getVersion(2, 0)
+ThisBuild / version := "2.1.0-SCALA-2.13-INTERNAL"
 ThisBuild / scalacOptions ++= Seq("-feature")
-ThisBuild / scalaVersion := "2.12.15"
+ThisBuild / scalaVersion := "2.13.12"
 
 lazy val common = crossProject(JSPlatform, JVMPlatform)
   .in(file("."))
@@ -20,7 +21,8 @@ lazy val common = crossProject(JSPlatform, JVMPlatform)
   )
   .jvmSettings(libraryDependencies += "org.scala-js" %% "scalajs-stubs" % "1.1.0" % "provided")
   .jsSettings(
-    scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) }
+      libraryDependencies += "org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0",
+      scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) }
   )
   .settings(AutomaticModuleName.settings("org.mulesoft.common"))
 

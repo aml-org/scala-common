@@ -1,11 +1,8 @@
 package org.mulesoft.common
 
-import scala.collection.{GenTraversableLike, mutable}
-import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable.ArrayBuffer
-import scala.collection.immutable
+import scala.collection.{BuildFrom, IterableOps, immutable, mutable}
 import scala.reflect.ClassTag
-import scala.language.higherKinds
 
 package object collections {
 
@@ -17,7 +14,7 @@ package object collections {
     * @tparam A
     *   collection member type
     */
-  implicit class FilterType[A, T[A] <: GenTraversableLike[A, T[A]]](collection: T[A]) {
+  implicit class FilterType[A, T[A] <: IterableOps[A, T, T[A]]](collection: T[A]) {
 
     /** Filters elements from collection by type B
       * @param tag
@@ -29,29 +26,29 @@ package object collections {
       * @return
       *   collection with filtered members of collection of type B
       */
-    def filterType[B](implicit tag: ClassTag[B], bf: CanBuildFrom[T[A], B, T[B]]): T[B] = collection.collect {
+    def filterType[B](implicit tag: ClassTag[B], bf: BuildFrom[T[A], B, T[B]]): T[B] = collection.collect {
       case element: B => element
     }
   }
 
   /** Utility methods to group collections
     */
-  implicit class Group[A](val t: TraversableOnce[A]) {
+  implicit class Group[A](val t: IterableOnce[A]) {
 
     /** groupBy method present in Scala 2.12.12
       */
     def legacyGroupBy[K](f: A => K): immutable.Map[K, ArrayBuffer[A]] = {
       val m = mutable.Map.empty[K, mutable.Builder[A, ArrayBuffer[A]]]
-      for (elem <- t) {
+      t.iterator.foreach(elem => {
         val key  = f(elem)
-        val bldr = m.getOrElseUpdate(key, mutable.ArrayBuffer[A]())
+        val bldr = m.getOrElseUpdate(key, mutable.ArrayBuffer.newBuilder[A])
         bldr += elem
-      }
+      })
       val b = immutable.Map.newBuilder[K, ArrayBuffer[A]]
       for ((k, v) <- m)
-        b += ((k, v.result))
+        b += ((k, v.result()))
 
-      b.result
+      b.result()
     }
 
   }

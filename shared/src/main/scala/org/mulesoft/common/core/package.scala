@@ -177,12 +177,12 @@ package object core {
     /** Interpreting the string as a file name replace The extension */
     def replaceExtension(newExt: String): String = {
       val lastDot = str.lastIndexOf('.')
-      val ext     = if (newExt.isNullOrEmpty) "" else if (newExt(0) != '.') '.' + newExt else newExt
+      val ext     = if (newExt.isNullOrEmpty) "" else if (newExt(0) != '.') '.'.toString + newExt else newExt
       if (lastDot == -1) str + ext else str.substring(0, lastDot) + ext
     }
 
     /** Add quotes to the string. If the string already has quotes, returns the same string */
-    def quoted: String = if (str.startsWith("\"") && str.endsWith("\"")) str else '"' + str + '"'
+    def quoted: String = if (str.startsWith("\"") && str.endsWith("\"")) str else '"'.toString + str + '"'
 
     /** Returns true if all characters are ascii */
     def isOnlyAscii: Boolean = str.isNullOrEmpty || str.forall(_.isAscii)

@@ -10,7 +10,7 @@ import scala.language.higherKinds
   */
 trait File {
 
-  protected val global: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
+  protected val global: ExecutionContext
 
   /** Returns an async view of the file */
   def async: AsyncFile

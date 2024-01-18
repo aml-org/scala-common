@@ -35,7 +35,7 @@ trait IoTest extends AnyFunSuite with BaseIoTest {
     val isoFile = targetDir / helloIsoFileName
 
     an[Exception] should be thrownBy {
-      hello read ()
+      hello.read()
     }
     hello write helloString
     hello.read().toString shouldBe helloString

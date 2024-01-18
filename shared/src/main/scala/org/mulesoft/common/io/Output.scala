@@ -52,7 +52,7 @@ object Output {
 
     override def append(w: LimitedStringBuffer, s: CharSequence): Unit = w.append(s)
 
-    override def close(w: LimitedStringBuffer): Unit = Unit
+    override def close(w: LimitedStringBuffer): Unit = ()
   }
 
   implicit def stringBufferWriter[W <: LimitedStringBuffer]: Output[W] = StringBufferWriter.asInstanceOf[Output[W]]
