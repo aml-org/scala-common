@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext
 /**
   * Implementation of a SyncFile for the JVM
   */
-protected class JvmSyncFile(val fileSystem: FileSystem, val path: String) extends SyncFile {
+protected class JvmSyncFile(val fileSystem: FileSystem, val path: String) extends SyncFile with JvmBaseFile {
 
   private val file = new JFile(path)
 

@@ -70,7 +70,7 @@ trait SimpleDateTimeTest extends AnyFunSuite with Matchers with OptionValues {
         s shouldBe SimpleDateTime(2019, 1, 7, TimeOfDay(11, 0, 0, 50 *1000 * 1000))
         s.toString shouldBe "2019-01-07T11:00:00.05"
     }
-    parse("2015-02-28T11:00:00.1234567890Z").left.get shouldBe FormatError("2015-02-28T11:00:00.1234567890Z")
+    parse("2015-02-28T11:00:00.1234567890Z").left.toOption.get shouldBe FormatError("2015-02-28T11:00:00.1234567890Z")
 
     parseFullTime("xxx").isLeft shouldBe true
   }
@@ -82,16 +82,16 @@ trait SimpleDateTimeTest extends AnyFunSuite with Matchers with OptionValues {
     parseAsDate("1500-02-29") shouldBe SimpleDateTime(1500, 2, 29)
     parseAsDate("2344-02-29") shouldBe SimpleDateTime(2344, 2, 29)
 
-    parseDate("2015-22-28").left.get shouldBe RangeError(22)
-    parseDate("2015-12-32").left.get shouldBe RangeError(32)
-    parseDate("0000-12-32").left.get shouldBe RangeError(0)
-    parseDate("2015-11-31").left.get shouldBe RangeError(31)
-    parseDate("2015-02-30").left.get shouldBe RangeError(30)
-    parseDate("2015-02-29").left.get shouldBe RangeError(29)
-    parseDate("1900-02-29").left.get shouldBe RangeError(29)
+    parseDate("2015-22-28").left.toOption.get shouldBe RangeError(22)
+    parseDate("2015-12-32").left.toOption.get shouldBe RangeError(32)
+    parseDate("0000-12-32").left.toOption.get shouldBe RangeError(0)
+    parseDate("2015-11-31").left.toOption.get shouldBe RangeError(31)
+    parseDate("2015-02-30").left.toOption.get shouldBe RangeError(30)
+    parseDate("2015-02-29").left.toOption.get shouldBe RangeError(29)
+    parseDate("1900-02-29").left.toOption.get shouldBe RangeError(29)
 
-    parseDate("2015-02-28T11:00:00").left.get shouldBe FormatError("2015-02-28T11:00:00")
-    parseDate("2015/02/28").left.get.message shouldBe "Format Error in '2015/02/28'"
+    parseDate("2015-02-28T11:00:00").left.toOption.get shouldBe FormatError("2015-02-28T11:00:00")
+    parseDate("2015/02/28").left.toOption.get.message shouldBe "Format Error in '2015/02/28'"
   }
 
   test("toString date") {
@@ -101,17 +101,17 @@ trait SimpleDateTimeTest extends AnyFunSuite with Matchers with OptionValues {
 
     test("parse partial time") {
     parsePartialTime("0:0").toOption.value shouldBe TimeOfDay(0)
-    parsePartialTime("33:0").left.get shouldBe RangeError(33)
-    parsePartialTime("14:61").left.get shouldBe RangeError(61)
-    parsePartialTime("24:01").left.get.message shouldBe "Value '1' out of range"
-    parsePartialTime("24:00:02").left.get shouldBe RangeError(2)
-    parsePartialTime("24:00:00.0001").left.get shouldBe RangeError(100000)
+    parsePartialTime("33:0").left.toOption.get shouldBe RangeError(33)
+    parsePartialTime("14:61").left.toOption.get shouldBe RangeError(61)
+    parsePartialTime("24:01").left.toOption.get.message shouldBe "Value '1' out of range"
+    parsePartialTime("24:00:02").left.toOption.get shouldBe RangeError(2)
+    parsePartialTime("24:00:00.0001").left.toOption.get shouldBe RangeError(100000)
     parsePartialTime("xxx").isLeft shouldBe true
   }
   test("parse full time") {
     parseFullTime("0:0-03:30").toOption.value shouldBe (TimeOfDay(0), Some(-210 * 60))
-    parseFullTime("0:0-33:30").left.get shouldBe RangeError(-33)
-    parseFullTime("0:0-03:90").left.get shouldBe RangeError(90)
+    parseFullTime("0:0-33:30").left.toOption.get shouldBe RangeError(-33)
+    parseFullTime("0:0-03:90").left.toOption.get shouldBe RangeError(90)
   }
 
   test("toString time") {

@@ -115,19 +115,19 @@ trait NetTest extends AnyFunSuite with Matchers {
     def s(s: String) = Literal(s)
     def e(e: String) = Expression(e)
 
-    parse("aaxbb").right.get.parts shouldBe Array(s("aaxbb"))
-    parse("aa}xbb").right.get.parts shouldBe Array(s("aa}xbb"))
-    parse("aa{xx}bb").right.get.parts shouldBe Array(s("aa"), e("xx"), s("bb"))
-    parse("aa{xx}{yy}bb{xx}").right.get.parts shouldBe Array(s("aa"), e("xx"), e("yy"), s("bb"), e("xx"))
-    parse("aa{.xx}bb").right.get.parts shouldBe Array(s("aa"), e(".xx"), s("bb"))
-    parse("aa{.xx:10,b1_*,c4}bb").right.get.parts shouldBe Array(s("aa"), e(".xx:10,b1_*,c4"), s("bb"))
+    parse("aaxbb").toOption.get.parts shouldBe Array(s("aaxbb"))
+    parse("aa}xbb").toOption.get.parts shouldBe Array(s("aa}xbb"))
+    parse("aa{xx}bb").toOption.get.parts shouldBe Array(s("aa"), e("xx"), s("bb"))
+    parse("aa{xx}{yy}bb{xx}").toOption.get.parts shouldBe Array(s("aa"), e("xx"), e("yy"), s("bb"), e("xx"))
+    parse("aa{.xx}bb").toOption.get.parts shouldBe Array(s("aa"), e(".xx"), s("bb"))
+    parse("aa{.xx:10,b1_*,c4}bb").toOption.get.parts shouldBe Array(s("aa"), e(".xx:10,b1_*,c4"), s("bb"))
 
-    parse("aa{xbb").left.get.message shouldBe "Format Error (Unclosed braces) in 'aa{xbb'"
-    parse("aa{yy}aa{xbb").left.get.message shouldBe "Format Error (Unclosed braces) in 'aa{yy}aa{xbb'"
-    parse("aa{>xx}bb").left.get.message shouldBe "Format Error (Illegal operator) in '>xx'"
-    parse("aa{#xx:1000}bb").left.get.message shouldBe "Format Error (Illegal Variable Specification) in 'xx:1000'"
-    parse("aa{#xx:10,y1#}bb").left.get.message shouldBe "Format Error (Illegal Variable Specification) in 'y1#'"
-    parse("aa{}bb").left.get.message shouldBe "Format Error (Empty expression) in ''"
+    parse("aa{xbb").left.toOption.get.message shouldBe "Format Error (Unclosed braces) in 'aa{xbb'"
+    parse("aa{yy}aa{xbb").left.toOption.get.message shouldBe "Format Error (Unclosed braces) in 'aa{yy}aa{xbb'"
+    parse("aa{>xx}bb").left.toOption.get.message shouldBe "Format Error (Illegal operator) in '>xx'"
+    parse("aa{#xx:1000}bb").left.toOption.get.message shouldBe "Format Error (Illegal Variable Specification) in 'xx:1000'"
+    parse("aa{#xx:10,y1#}bb").left.toOption.get.message shouldBe "Format Error (Illegal Variable Specification) in 'y1#'"
+    parse("aa{}bb").left.toOption.get.message shouldBe "Format Error (Empty expression) in ''"
 
     UriTemplate("aaxbb").parts shouldBe Array(s("aaxbb"))
 

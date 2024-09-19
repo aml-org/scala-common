@@ -61,7 +61,7 @@ trait CoreTest extends AnyFunSuite with Matchers {
     "\\x1B\\U0001f600".decode shouldBe "\u001B😀"
     "\\v\\e\\N".decode shouldBe "\u000B\u001B\u0085"
     "\\_\\L\\P".decode shouldBe "\u00A0\u2028\u2029"
-    "\\a".decode shouldBe 7.toChar + ""
+    "\\a".decode shouldBe 7.toChar.toString + ""
   }
   test("errors") {
     an[IllegalArgumentException] should be thrownBy "\\u7".decode

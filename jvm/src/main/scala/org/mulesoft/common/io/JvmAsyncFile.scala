@@ -6,7 +6,7 @@ import scala.concurrent.{ExecutionContext, Future}
   * Implementation of a AsyncFile for the JVM
   * * @todo better handling of errors, Real async mode
   */
-protected class JvmAsyncFile(private val syncFile: JvmSyncFile) extends AsyncFile {
+protected class JvmAsyncFile(private val syncFile: JvmSyncFile) extends AsyncFile with JvmBaseFile {
 
   val path: String           = syncFile.path
   val fileSystem: FileSystem = syncFile.fileSystem
