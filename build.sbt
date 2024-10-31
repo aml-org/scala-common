@@ -3,7 +3,7 @@ import sbtsonar.SonarPlugin.autoImport.sonarProperties
 
 ThisBuild / version := getVersion(2, 0)
 ThisBuild / scalacOptions ++= Seq("-feature")
-ThisBuild / scalaVersion := "2.12.18"
+ThisBuild / scalaVersion := "2.12.20"
 
 lazy val common = crossProject(JSPlatform, JVMPlatform)
   .in(file("."))
