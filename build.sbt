@@ -5,9 +5,9 @@ ThisBuild / version := getVersion(2, 1)
 ThisBuild / scalacOptions ++= Seq("-feature")
 ThisBuild / scalaVersion := "2.12.20"
 
-organizationName := "MuleSoft, Inc."
-organizationHomepage := Some(url("http://www.mulesoft.com"))
-licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
+ThisBuild / organizationName := "MuleSoft, Inc."
+ThisBuild / organizationHomepage := Some(url("http://www.mulesoft.com"))
+ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 lazy val common = crossProject(JSPlatform, JVMPlatform)
   .in(file("."))
