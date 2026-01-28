@@ -3,7 +3,7 @@ import sbtsonar.SonarPlugin.autoImport.sonarProperties
 
 ThisBuild / version := getVersion(2, 1)
 ThisBuild / scalacOptions ++= Seq("-feature")
-ThisBuild / scalaVersion := "2.12.20"
+ThisBuild / scalaVersion := "2.12.21"
 
 ThisBuild / organizationName := "MuleSoft, Inc."
 ThisBuild / organizationHomepage := Some(url("http://www.mulesoft.com"))
